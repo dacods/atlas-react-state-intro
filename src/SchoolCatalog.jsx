@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { EnrolledContext } from "./App";
 
 const PAGE_SIZE = 5;
 
@@ -8,6 +9,7 @@ export default function SchoolCatalog() {
   const [sort, setSort] = useState("trimester");
   const [direction, setDirection] = useState("asc");
   const [page, setPage] = useState(1);
+  const { enrolled, enrollCourse } = useContext(EnrolledContext)
 
 
   useEffect(() => {
@@ -52,6 +54,10 @@ export default function SchoolCatalog() {
   const hasMore = sortedCourses.length > page * PAGE_SIZE;
   const hasLess = page > 1;
 
+  const handleEnroll = (course) => {
+    enrollCourse(course)
+  }
+
   return (
     <div className="school-catalog">
       <h1>School Catalog</h1>
@@ -76,7 +82,7 @@ export default function SchoolCatalog() {
               <td>{course.semesterCredits}</td>
               <td>{course.totalClockHours}</td>
               <td>
-                <button>Enroll</button>
+                <button onClick={() => handleEnroll(course)}>Enroll</button>
               </td>
             </tr>
           ))}
