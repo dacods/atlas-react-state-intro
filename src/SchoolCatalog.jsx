@@ -21,7 +21,7 @@ export default function SchoolCatalog() {
     );
   });
 
-  const sortedCourses = courses.sort((a, b) => {
+  const sortedCourses = filteredCourses.sort((a, b) => {
     if (sort === "trimester") {
       return a[sort].localeCompare(b.trimester) * (direction === "desc" ? -1: 1);
     }
@@ -61,7 +61,7 @@ export default function SchoolCatalog() {
           </tr>
         </thead>
         <tbody>
-          {filteredCourses.map(course => (
+          {sortedCourses.map(course => (
             <tr key={course.courseNumber}>
               <td>{course.trimester}</td>
               <td>{course.courseNumber}</td>
